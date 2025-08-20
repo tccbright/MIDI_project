@@ -17,7 +17,7 @@ public class MidiParser {
         return (ticks * (tempo / 1_000_000.0)) / tpq;
     }
 
-    // 🎵 MIDI → JSON
+    // MIDI → JSON
     public static ArrayNode parseMidi(String path) throws Exception {
         Sequence seq;
 
