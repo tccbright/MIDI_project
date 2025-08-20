@@ -1,3 +1,8 @@
+let files = [];              // 全部文件列表
+let currentFile = null;      // 当前选中的文件
+let currentFileId = null;    // 当前选中文件 id
+
+// ========== 上传 MIDI ==========
 async function uploadMidi(action) {
     const fileInput = document.getElementById("file");
     const nameInput = document.getElementById("name");
@@ -26,11 +31,9 @@ async function uploadMidi(action) {
             body: formData
         });
 
-        if (!res.ok) {
-            throw new Error("HTTP " + res.status);
-        }
+        if (!res.ok) throw new Error("HTTP " + res.status);
 
-        const result = await res.json();   // ✅ 先拿到 {success,message,data}
+        const result = await res.json();   // {success,message,data}
 
         if (result.success) {
             const song = result.data;
@@ -50,14 +53,11 @@ async function uploadMidi(action) {
             closeUploadModal();
 
             // 同时把新文件加到右侧列表
-            if (typeof files !== "undefined") {
-                files.push({
-                    id: song.id || Date.now(),
-                    name: song.name,
-                    desc: song.description
-                });
-                renderFileList();
-            }
+            files.push({
+                id: song.id || Date.now(),
+                name: song.name
+            });
+            renderFileList();
         } else {
             document.getElementById("result").innerText = "❌ 上传失败: " + result.message;
         }
