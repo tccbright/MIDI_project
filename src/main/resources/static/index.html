@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>MIDI 播放器主页</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="grid-container">
+    <!-- 1. 上传 MIDI -->
+
+    <div class="card" id="uploadCard" onclick="openUploadModal()">
+        <h2>🎵 上传 MIDI</h2>
+        <div id="uploadInfo">
+            <p>点击上传新的 MIDI 文件</p>
+        </div>
+    </div>
+
+
+    <!-- 2. 已保存 MIDI 文件 -->
+    <div class="card">
+        <h2>📂 已保存 MIDI 文件</h2>
+        <ul id="fileList" class="file-list"></ul>
+
+        <div id="fileInfo" class="info-box">
+            请选择一个文件查看详情
+        </div>
+
+        <div class="controls">
+            <button onclick="playMidi()">▶ 播放</button>
+            <button onclick="pauseMidi()">⏸ 暂停</button>
+        </div>
+
+        <div id="bandStatus" class="status-box">
+            🎶 乐队状态将在这里显示
+        </div>
+    </div>
+
+    <!-- 3. 实时演奏 -->
+    <div class="card">
+        <h2>🎹 实时演奏</h2>
+        <p>功能开发中...</p>
+    </div>
+
+    <!-- 4. 预留 -->
+    <div class="card">
+        <h2>⚡ 预留区域</h2>
+    </div>
+</div>
+
+<!-- 上传 MIDI 弹窗 -->
+<div id="uploadModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeUploadModal()">&times;</span>
+        <h2>上传 MIDI 文件</h2>
+        <form id="uploadForm">
+            <label>歌曲名称：</label>
+            <input type="text" id="name" required>
+
+            <label>歌曲简介：</label>
+            <textarea id="description" rows="3"></textarea>
+
+            <label>选择 MIDI 文件：</label>
+            <input type="file" id="file" accept=".mid" required>
+
+            <div class="btn-group">
+                <button type="button" onclick="uploadMidi('save')">保存 JSON</button>
+                <button type="button" onclick="uploadMidi('savePublish')">保存并推送 MQTT</button>
+            </div>
+        </form>
+        <div id="result"></div>
+    </div>
+</div>
+
+<script src="js/script.js"></script>
+<script src="js/midiUpload.js"></script>
+</body>
+</html>

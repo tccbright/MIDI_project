@@ -15,7 +15,7 @@ public class MqttService {
     @PostConstruct
     public void init() {
         try {
-            client = new MqttClient("tcp://localhost:1883", MqttClient.generateClientId(), new MemoryPersistence());
+            client = new MqttClient("tcp://172.20.10.10:1883", MqttClient.generateClientId(), new MemoryPersistence());
             client.connect();
         } catch (Exception e) {
             e.printStackTrace();
