@@ -163,3 +163,48 @@ button:hover {
     justify-content: space-between;
     gap: 8px;
 }
+
+.info-box {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    line-height: 1.6;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+}
+
+.info-row {
+    margin: 6px 0;
+    display: flex;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #333;
+    width: 80px;   /* 标签固定宽度 */
+}
+
+.info-value {
+    flex: 1;
+    color: #555;
+}
+
+ .status-table {
+     width: 100%;
+     border-collapse: collapse;
+     margin-top: 10px;
+ }
+.status-table th, .status-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+.status {
+    font-weight: bold;
+}
+.online { color: orange; }
+.ready { color: green; }
+.offline { color: red; }
+

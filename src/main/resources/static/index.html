@@ -27,13 +27,11 @@
         </div>
 
         <div class="controls">
+            <button class="push-btn" onclick="pushMidi()">📤 推送</button>
             <button onclick="playMidi()">▶ 播放</button>
             <button onclick="pauseMidi()">⏸ 暂停</button>
         </div>
 
-        <div id="bandStatus" class="status-box">
-            🎶 乐队状态将在这里显示
-        </div>
     </div>
 
     <!-- 3. 实时演奏 -->
@@ -42,11 +40,28 @@
         <p>功能开发中...</p>
     </div>
 
+
     <!-- 4. 预留 -->
     <div class="card">
-        <h2>⚡ 预留区域</h2>
+        <h2>乐队状态</h2>
+        <table id="bandStatusTable" class="status-table">
+            <thead>
+            <tr>
+                <th>乐器</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr><td>Piano</td><td id="Piano" class="status">-</td></tr>
+            <tr><td>Bass</td><td id="Bass" class="status">-</td></tr>
+            <tr><td>Violin</td><td id="Violin" class="status">-</td></tr>
+            <tr><td>Strings</td><td id="Strings" class="status">-</td></tr>
+            <tr><td>Drums</td><td id="Drums" class="status">-</td></tr>
+            </tbody>
+        </table>
     </div>
-</div>
+
+
 
 <!-- 上传 MIDI 弹窗 -->
 <div id="uploadModal" class="modal">
@@ -72,7 +87,14 @@
     </div>
 </div>
 
-<script src="js/script.js"></script>
-<script src="js/midiUpload.js"></script>
+    <script>
+        window.BAND_WS_URL = 'ws://localhost:8080/ws/status';
+    </script>
+
+    <script src="js/script.js"></script>
+    <script src="js/midiUpload.js"></script>
+    <script src="js/midi.js"></script>
+    <script src="js/play.js"></script>
+</div>
 </body>
 </html>

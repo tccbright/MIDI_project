@@ -1,5 +1,6 @@
 package com.tccb.virtualband.controller;
 
+import com.tccb.virtualband.dto.MidiFileDto;
 import com.tccb.virtualband.dto.MidiUploadDto;
 import com.tccb.virtualband.entity.Song;
 import com.tccb.virtualband.service.MidiService;
@@ -8,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
 @RestController
 @RequestMapping("/midi")
 @Slf4j
@@ -50,5 +52,61 @@ public class MidiController {
         dto.setName(name);
         dto.setDescription(description);
         return midiService.saveAndPublishMidi(file, dto);
+    }
+
+    /**
+     * 返回名字和id
+     * @return
+     */
+    @GetMapping("/list")
+    public List<MidiFileDto> listMidiFiles() {
+        return midiService.getAllMidiFiles();
+    }
+
+
+    /**
+     * 查具体的歌
+     * @param id
+     * @return
+     */
+    @GetMapping("/detail/{id}")
+    public Song getMidiDetail(@PathVariable Long id) {
+        return midiService.getMidiDetail(id);
+    }
+
+
+    /**
+     * 推送歌曲
+     * @param id
+     * @return
+     */
+    @PostMapping("/push/{id}")
+    public Result<String> pushMidi(@PathVariable Long id) {
+        boolean success = midiService.pushMidiToMqtt(id);
+        if (success) {
+            return Result.ok("publish success!");
+        } else {
+            return Result.fail("publish fail!");
+        }
+    }
+
+    /**
+     * 播放歌曲
+     * @return
+     */
+    @PostMapping("/play")
+    public Result<String> play() {
+        midiService.sendControlCommand("{\"cmd\":\"start\",\"delayMs\":3000}");
+        return Result.ok("播放指令已发送");
+    }
+
+    /**
+     * 暂停歌曲
+     * @return
+     */
+    @PostMapping("/pause")
+    public Result<String> pause() {
+        midiService.sendControlCommand("{\"cmd\":\"stop\"}");
+        return Result.ok("暂停指令已发送");
     }
 }
