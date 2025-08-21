@@ -45,7 +45,7 @@ function toggleFileDetail(fileId, li) {
             <div class="info-row"><span class="info-label">文件名:</span><span class="info-value">${file.name}</span></div>
             <div class="info-row"><span class="info-label">描述:</span><span class="info-value">${file.description || "无"}</span></div>
             <div class="info-row"><span class="info-label">乐器数量:</span><span class="info-value">${file.instrumentCount || 0}</span></div>
-            <div class="info-row"><span class="info-label">创建时间:</span><span class="info-value">${file.createdAt || "未知"}</span></div>
+              <div class="info-row"><span class="info-label">创建时间:</span><span class="info-value">${formatTime(file.createdAt)}</span></div>
             `;
         })
         .catch (err => console.error ("加载文件详情失败:", err));
@@ -105,4 +105,21 @@ function pauseMidi() {
                 console.error("❌ 暂停失败:", result.message);
             }
         });
+}
+
+function formatTime(ts) {
+    if (!ts) return "未知";
+    const d = new Date(ts);
+    if (isNaN(d.getTime())) {
+        // 兜底：如果后端给的是 "2025-08-21T02:17:23" 这种纯字符串
+        return String(ts).replace('T', ' ');
+    }
+    const pad = n => String(n).padStart(2, '0');
+    const y = d.getFullYear();
+    const m = pad(d.getMonth() + 1);
+    const day = pad(d.getDate());
+    const hh = pad(d.getHours());
+    const mm = pad(d.getMinutes());
+    const ss = pad(d.getSeconds());
+    return `${y}-${m}-${day} ${hh}:${mm}:${ss}`;
 }
