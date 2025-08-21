@@ -10,11 +10,20 @@
     <!-- 1. 上传 MIDI -->
 
     <div class="card" id="uploadCard" onclick="openUploadModal()">
-        <h2>🎵 上传 MIDI</h2>
-        <div id="uploadInfo">
-            <p>点击上传新的 MIDI 文件</p>
+        <h1 class="main-title">🎼 VirtualBand</h1>
+
+        <div class="upload-body">
+            <h2>🎵 Upload MIDI</h2>
+            <p class="hint">Click to upload a new MIDI file</p>
+
+            <div id="lastUpload" class="last-upload">
+                <h3>📑 Recent Upload</h3>
+                <p>No recent upload</p>
+            </div>
         </div>
     </div>
+
+
 
 
     <!-- 2. 已保存 MIDI 文件 -->
@@ -35,10 +44,66 @@
     </div>
 
     <!-- 3. 实时演奏 -->
-    <div class="card">
+    <link rel="stylesheet" href="/css/realtime-play.css">
+
+    <div class="card" id="realtime-play">
         <h2>🎹 实时演奏</h2>
-        <p>功能开发中...</p>
+
+        <!-- 选择主类 -->
+        <div class="part-tabs">
+            <button class="part-btn active" data-part="Piano">Piano</button>
+            <button class="part-btn" data-part="Bass">Bass</button>
+            <button class="part-btn" data-part="Violin">Violin</button>
+            <button class="part-btn" data-part="Strings">Strings</button>
+            <button class="part-btn" data-part="Drums">Drums</button>
+        </div>
+
+        <!-- 通道设置（Bank 固定 0） -->
+        <div class="row">
+            <div class="field">
+                <label>Program Channel (0–15)</label>
+                <input id="progCh" type="number" min="0" max="15" value="0">
+                <small id="progChHint" class="hint">提示：Drums 自动使用通道 9</small>
+            </div>
+        </div>
+
+        <!-- 分支音色（点击即选中） -->
+        <div>
+            <label>分支音色（点击以选择）</label>
+            <div id="variantList" class="variant-grid"></div>
+        </div>
+
+        <!-- 设置乐器（发送 program） -->
+        <div class="row mt-10">
+            <button id="btnSetProgram">设置乐器（发送 program）</button>
+            <span id="currentSel" class="hint ml-8"></span>
+        </div>
+
+        <hr>
+
+        <!-- 发音控制 -->
+        <div class="row">
+            <div class="field">
+                <label>Pitch (0–127)</label>
+                <input id="notePitch" type="number" min="0" max="127" value="60">
+            </div>
+            <div class="field">
+                <label>Velocity (0–100)</label>
+                <input id="noteVel" type="number" min="0" max="100" value="100">
+            </div>
+            <div class="field">
+                <label>Note Channel (0–15)</label>
+                <input id="noteCh" type="number" min="0" max="15" value="0">
+            </div>
+        </div>
+
+        <div class="row">
+            <button id="btnNoteOn">开始发音 (note on)</button>
+            <button id="btnNoteOff">结束音 (note off)</button>
+        </div>
     </div>
+
+
 
 
     <!-- 4. 预留 -->
@@ -95,6 +160,7 @@
     <script src="js/midiUpload.js"></script>
     <script src="js/midi.js"></script>
     <script src="js/play.js"></script>
+    <script src="js/realtime-play.js"></script>
 </div>
 </body>
 </html>
