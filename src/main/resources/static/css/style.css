@@ -298,6 +298,38 @@ button:hover {
 /* 给 Push / Play / Stop 做一点微弱区分（可删） */
 .controls .push-btn { background: #ff8a65; }
 .controls .push-btn:hover { background: #f1734a; }
+/* Band Status typography: unify color + enlarge */
+.card:has(#bandStatusTable) {
+    --status-text: #EAEFFA;   /* one unified light color */
+}
+
+/* apply the unified color */
+.card:has(#bandStatusTable),
+.card:has(#bandStatusTable) h2,
+.card:has(#bandStatusTable) #bandStatusTable th,
+.card:has(#bandStatusTable) #bandStatusTable td {
+    color: var(--status-text);
+}
+
+/* bigger title */
+.card:has(#bandStatusTable) h2 {
+    font-size: 20px;          /* ↑ title size */
+    font-weight: 700;
+}
+
+/* bigger table text */
+#bandStatusTable th,
+#bandStatusTable td {
+    font-size: 16px;          /* ↑ cell size */
+    padding: 8px 16px;
+}
+
+/* keep header background but text uses same unified color */
+#bandStatusTable thead th {
+    background: rgba(255,255,255,0.08);
+}
+
+
 
 
 

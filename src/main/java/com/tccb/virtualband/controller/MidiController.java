@@ -96,8 +96,8 @@ public class MidiController {
      */
     @PostMapping("/play")
     public Result<String> play() {
-        midiService.sendControlCommand("{\"cmd\":\"start\",\"delayMs\":3000}");
-        return Result.ok("播放指令已发送");
+        midiService.sendControlCommand("{\"cmd\":\"start\",\"delayMs\":1000}");
+        return Result.ok("The playback command has been sent");
     }
 
     /**
@@ -107,6 +107,6 @@ public class MidiController {
     @PostMapping("/pause")
     public Result<String> pause() {
         midiService.sendControlCommand("{\"cmd\":\"stop\"}");
-        return Result.ok("暂停指令已发送");
+        return Result.ok("The stop command has been sent");
     }
 }

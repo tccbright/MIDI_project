@@ -119,10 +119,18 @@
     background:#101012;
 }
 
-/* 小屏优化 */
+
 @media (max-width: 520px){
     #realtime-play input{ width: 120px; }
     #realtime-play .variant-grid{
         grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     }
 }
+
+/* Make the bottom two buttons horizontal */
+.notes-actions {
+    display: flex;
+    gap: 12px;
+}
+.notes-actions button { flex: 1; }
+

@@ -67,7 +67,7 @@ public class MidiServiceImpl implements MidiService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.fail("保存失败: " + e.getMessage());
+            return Result.fail("Fail save: " + e.getMessage());
         }
     }
 
@@ -102,7 +102,7 @@ public class MidiServiceImpl implements MidiService {
 
         } catch (Exception e) {
             e.printStackTrace();
-            return Result.fail("保存推送失败: " + e.getMessage());
+            return Result.fail("Failed to save push: " + e.getMessage());
         }
     }
 
@@ -182,7 +182,7 @@ public class MidiServiceImpl implements MidiService {
             client.disconnect();
             System.out.println("✅ 已发送 MQTT 指令: " + commandJson);
         } catch (Exception e) {
-            throw new RuntimeException("发送 MQTT 指令失败", e);
+            throw new RuntimeException("Failed to send MQTT command", e);
         }
     }
 }
