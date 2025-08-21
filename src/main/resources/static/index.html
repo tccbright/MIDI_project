@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>MIDI 播放器主页</title>
+    <title>MIDI Player Home</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -23,22 +23,19 @@
         </div>
     </div>
 
-
-
-
     <!-- 2. 已保存 MIDI 文件 -->
     <div class="card">
-        <h2>📂 已保存 MIDI 文件</h2>
+        <h2>📂 Saved MIDI Files</h2>
         <ul id="fileList" class="file-list"></ul>
 
         <div id="fileInfo" class="info-box">
-            请选择一个文件查看详情
+            Please select a file to view details
         </div>
 
         <div class="controls">
-            <button class="push-btn" onclick="pushMidi()">📤 推送</button>
-            <button onclick="playMidi()">▶ 播放</button>
-            <button onclick="pauseMidi()">⏸ 暂停</button>
+            <button class="push-btn" onclick="pushMidi()">📤 Push</button>
+            <button onclick="playMidi()">▶ Play</button>
+            <button onclick="pauseMidi()">⏹ Stop</button>
         </div>
 
     </div>
@@ -47,7 +44,7 @@
     <link rel="stylesheet" href="/css/realtime-play.css">
 
     <div class="card" id="realtime-play">
-        <h2>🎹 实时演奏</h2>
+        <h2>🎹 Real-time Performance</h2>
 
         <!-- 选择主类 -->
         <div class="part-tabs">
@@ -63,19 +60,19 @@
             <div class="field">
                 <label>Program Channel (0–15)</label>
                 <input id="progCh" type="number" min="0" max="15" value="0">
-                <small id="progChHint" class="hint">提示：Drums 自动使用通道 9</small>
+                <small id="progChHint" class="hint">Hint: Drums automatically use channel 9</small>
             </div>
         </div>
 
         <!-- 分支音色（点击即选中） -->
         <div>
-            <label>分支音色（点击以选择）</label>
+            <label>Variants (click to select)</label>
             <div id="variantList" class="variant-grid"></div>
         </div>
 
         <!-- 设置乐器（发送 program） -->
         <div class="row mt-10">
-            <button id="btnSetProgram">设置乐器（发送 program）</button>
+            <button id="btnSetProgram">Set Instrument (send program)</button>
             <span id="currentSel" class="hint ml-8"></span>
         </div>
 
@@ -98,8 +95,8 @@
         </div>
 
         <div class="row">
-            <button id="btnNoteOn">开始发音 (note on)</button>
-            <button id="btnNoteOff">结束音 (note off)</button>
+            <button id="btnNoteOn">Start Note (note on)</button>
+            <button id="btnNoteOff">End Note (note off)</button>
         </div>
     </div>
 
@@ -108,12 +105,12 @@
 
     <!-- 4. 预留 -->
     <div class="card">
-        <h2>乐队状态</h2>
+        <h2>Band Status</h2>
         <table id="bandStatusTable" class="status-table">
             <thead>
             <tr>
-                <th>乐器</th>
-                <th>状态</th>
+                <th>Instrument</th>
+                <th>Status</th>
             </tr>
             </thead>
             <tbody>
@@ -128,29 +125,29 @@
 
 
 
-<!-- 上传 MIDI 弹窗 -->
-<div id="uploadModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="closeUploadModal()">&times;</span>
-        <h2>上传 MIDI 文件</h2>
-        <form id="uploadForm">
-            <label>歌曲名称：</label>
-            <input type="text" id="name" required>
+    <!-- 上传 MIDI 弹窗 -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeUploadModal()">&times;</span>
+            <h2>Upload MIDI File</h2>
+            <form id="uploadForm">
+                <label>Song Name:</label>
+                <input type="text" id="name" required>
 
-            <label>歌曲简介：</label>
-            <textarea id="description" rows="3"></textarea>
+                <label>Description:</label>
+                <textarea id="description" rows="3"></textarea>
 
-            <label>选择 MIDI 文件：</label>
-            <input type="file" id="file" accept=".mid" required>
+                <label>Choose MIDI File:</label>
+                <input type="file" id="file" accept=".mid" required>
 
-            <div class="btn-group">
-                <button type="button" onclick="uploadMidi('save')">保存 JSON</button>
-                <button type="button" onclick="uploadMidi('savePublish')">保存并推送 MQTT</button>
-            </div>
-        </form>
-        <div id="result"></div>
+                <div class="btn-group">
+                    <button type="button" onclick="uploadMidi('save')">Save JSON</button>
+                    <button type="button" onclick="uploadMidi('savePublish')">Save & Publish MQTT</button>
+                </div>
+            </form>
+            <div id="result"></div>
+        </div>
     </div>
-</div>
 
     <script>
         window.BAND_WS_URL = 'ws://localhost:8080/ws/status';

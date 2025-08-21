@@ -49,7 +49,7 @@
             {prog:55, name:"Orchestra Hit"},
         ],
         Drums: [
-            { prog: 0, name: "Standard Drum Kit (Ch 9)" },
+            { prog: 0, name: "Standard Drum Kit " },
             { prog: 8, name: "Room Kit" },
             { prog: 16, name: "Power Kit" },
             { prog: 24, name: "Electronic Kit" },
@@ -100,8 +100,8 @@
             if(!res.ok) throw new Error('HTTP '+res.status);
             console.log('✅ MQTT', topic, payload);
         }catch(e){
-            console.error('❌ MQTT 失败', e);
-            alert('MQTT 发送失败：'+e.message);
+            console.error('❌ MQTT Failed', e);
+            alert('MQTT send failed: '+ e.message);
         }
     }
 
@@ -126,7 +126,7 @@
                 qsa('.variant').forEach(x=>x.classList.remove('selected'));
                 btn.classList.add('selected');
                 const sel = qs('#currentSel');
-                if(sel) sel.textContent = `已选音色：#${v.prog} ${v.name}`;
+                if(sel) sel.textContent = `Selected: #${v.prog} ${v.name}`;
             });
             box.appendChild(btn);
         });
@@ -141,11 +141,11 @@
         if(currentPart==='Drums'){
             if(progCh){progCh.value=9; progCh.disabled=true;}
             if(noteCh){noteCh.value=9; noteCh.disabled=true;}
-            if(hint) hint.textContent='Drums：通道固定为 9';
+            if(hint) hint.textContent = 'Drums: channel is fixed to 9';
         }else{
             if(progCh){progCh.disabled=false; if(progCh.value==9) progCh.value=0;}
             if(noteCh){noteCh.disabled=false; if(noteCh.value==9) noteCh.value=0;}
-            if(hint) hint.textContent='提示：Drums 自动使用通道 9';
+            if(hint) hint.textContent = 'Hint: Drums automatically uses channel 9';
         }
     }
 
@@ -200,7 +200,7 @@
         });
     }
 
-// 初始化
+    // 初始化
     document.addEventListener('DOMContentLoaded', ()=>{
         bindPartTabs();
         renderVariants();

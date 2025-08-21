@@ -1,210 +1,305 @@
+/* ===== 全局 ===== */
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
-    background: #f4f7fb;
+    background: #1e1e2f;   /* 深色背景 */
+    color: #f0f0f0;
 }
 
+h2 {
+    margin-top: 0;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* ===== 卡片 ===== */
 .grid-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 50% 50%;
-    height: 100vh;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
     padding: 20px;
     box-sizing: border-box;
 }
 
 .card {
-    background: #fff;
+    background: #2a2a3b;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
     padding: 20px;
     transition: transform 0.2s;
 }
-
 .card:hover {
-    transform: scale(1.02);
+    transform: translateY(-3px);
 }
 
-h2 {
-    margin-top: 0;
+/* ===== 上传区域 ===== */
+#uploadCard {
+    text-align: center;
+    cursor: pointer;
+    border: 2px dashed #666;
+    background: #26263a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#uploadCard:hover {
+    border-color: #4cafef;
+}
+#uploadCard h2 {
+    color: #8ab4f8;
 }
 
+/* ===== 文件列表 ===== */
 .file-list {
     list-style: none;
     padding: 0;
     margin: 0;
     max-height: 150px;
     overflow-y: auto;
-    border: 1px solid #ddd;
-    border-radius: 6px;
+    border-radius: 8px;
 }
-
 .file-list li {
     padding: 8px 10px;
-    border-bottom: 1px solid #eee;
-    cursor: pointer;
-}
-
-.file-list li:hover {
-    background: #f1f1f1;
-}
-
-.info-box {
-    margin-top: 12px;
-    padding: 10px;
-    background: #f9fafc;
-    border: 1px solid #ddd;
     border-radius: 6px;
-    font-size: 14px;
+    margin: 4px 0;
+    background: #38384d;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.file-list li:hover {
+    background: #4a4a6a;
 }
 
-.controls {
-    margin-top: 15px;
-}
-
+/* ===== 控制按钮 ===== */
 button {
     padding: 8px 14px;
-    margin-right: 8px;
+    margin: 4px 4px 4px 0;
     border: none;
-    border-radius: 6px;
-    background: #007bff;
+    border-radius: 8px;
+    background: #4cafef;
     color: white;
     font-weight: 600;
     cursor: pointer;
+    transition: background 0.2s;
 }
-
 button:hover {
-    background: #0056b3;
+    background: #3a9bdc;
 }
 
-.status-box {
-    margin-top: 15px;
-    padding: 10px;
-    background: #f1f3f6;
-    border-radius: 6px;
-    font-size: 14px;
+/* ===== 实时演奏 tab ===== */
+.part-tabs {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+.part-btn {
+    flex: 1;
+    padding: 8px;
+    background: #38384d;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #ddd;
+    border: none;
+}
+.part-btn.active {
+    background: #4cafef;
+    color: #fff;
 }
 
-/* 模态框 */
+/* ===== 音色网格 ===== */
+.variant-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 8px;
+    margin-top: 8px;
+}
+.variant-grid div {
+    background: #38384d;
+    padding: 6px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.variant-grid div:hover {
+    background: #4a4a6a;
+}
+
+/* ===== 乐队状态表 ===== */
+.status-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+.status-table th {
+    background: #38384d;
+    padding: 8px;
+}
+.status-table td {
+    padding: 8px;
+}
+.status.online { color: #4caf50; }
+.status.ready { color: #ff9800; }
+.status.offline { color: #f44336; }
+
+/* ===== 上传弹窗 ===== */
 .modal {
     display: none;
     position: fixed;
     z-index: 10;
     left: 0; top: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.6);
 }
-
 .modal-content {
-    background: #fff;
+    background: #2a2a3b;
     margin: 8% auto;
     padding: 20px;
     border-radius: 12px;
-    width: 320px;       /* 改小，原来400px */
-    max-width: 90%;     /* 手机也能适配 */
+    width: 360px;
+    max-width: 90%;
     position: relative;
+    color: #f0f0f0;
 }
-
 .close {
     position: absolute;
     top: 12px; right: 16px;
     font-size: 20px;
     cursor: pointer;
+    color: #bbb;
 }
+.close:hover { color: #fff; }
 
 .modal-content form {
     display: flex;
     flex-direction: column;
 }
-
 .modal-content label {
     margin-top: 10px;
     font-weight: 600;
 }
-
 .modal-content input[type="text"],
 .modal-content textarea,
 .modal-content input[type="file"] {
-    width: 95%;         /* 不要铺满，留边距 */
+    width: 95%;
     padding: 8px 10px;
     margin-top: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid #555;
     border-radius: 6px;
     font-size: 14px;
-    align-self: center; /* 输入框居中 */
+    background: #1e1e2f;
+    color: #f0f0f0;
 }
-
 .modal-content textarea {
     resize: vertical;
     min-height: 60px;
     max-height: 120px;
 }
-
-.modal-content button {
-    margin-top: 12px;
-    padding: 8px 12px;
-    border: none;
-    border-radius: 6px;
-    background: #007bff;
-    color: white;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.modal-content button:hover {
-    background: #0056b3;
-}
-
-/* 两个按钮并排 */
 .modal-content .btn-group {
     display: flex;
     justify-content: space-between;
     gap: 8px;
 }
-
-.info-box {
-    background: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 15px 20px;
-    margin-top: 10px;
-    font-size: 14px;
-    line-height: 1.6;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-}
-
-.info-row {
-    margin: 6px 0;
-    display: flex;
-}
-
-.info-label {
-    font-weight: bold;
-    color: #333;
-    width: 80px;   /* 标签固定宽度 */
-}
-
-.info-value {
+.modal-content button {
     flex: 1;
-    color: #555;
+    font-size: 14px;
+}
+/* 卡片本身：列布局，占满高度 */
+#uploadCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;              /* 让卡片内能做垂直居中 */
+    border: 2px dashed #666;
+    background: #26263a;
+    cursor: pointer;
 }
 
- .status-table {
-     width: 100%;
-     border-collapse: collapse;
-     margin-top: 10px;
- }
-.status-table th, .status-table td {
-    border: 1px solid #ddd;
-    padding: 8px;
+/* 标题贴顶 */
+#uploadCard .main-title {
+    margin: 10px 0 0;          /* 顶部留一点点间距 */
+    font-size: 28px;
+    font-weight: 800;
     text-align: center;
+    color: #fff;
+    letter-spacing: 1px;
 }
-.status {
-    font-weight: bold;
+
+/* 其余内容整体居中 */
+#uploadCard .upload-body {
+    margin: auto 0;            /* 垂直方向自动分配空白 => 居中 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
 }
-.online { color: orange; }
-.ready { color: green; }
-.offline { color: red; }
+
+/* 提示与最近上传样式（可保留你原来的） */
+#uploadCard .hint { color: #aaa; }
+#lastUpload {
+    width: 100%;
+    max-width: 520px;
+    background: #2f2f44;
+    padding: 12px 16px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+    font-size: 14px;
+    color: #ddd;
+    text-align: left;
+}
+#lastUpload h3 { margin: 0 0 8px; color: #fff; }
+#lastUpload p { margin: 6px 0; }
+#lastUpload b { color: #fff; }
+/* —— Saved MIDI Files 面板优化 —— */
+
+/* 预览列表：加高、可滚动、选中高亮 */
+.file-list {
+    max-height: 320px;   /* 由原来的 150px 提高 */
+    overflow-y: auto;
+}
+.file-list li.active {
+    background: #4cafef;
+    color: #fff;
+}
+
+/* 详情信息盒子：卡片化 + 栅格行 */
+.info-box {
+    margin-top: 12px;
+    background: #1f2233;
+    border: 1px solid #3c3f55;
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+.info-row {
+    display: grid;
+    grid-template-columns: 120px 1fr; /* 左标签固定宽度，右侧自适应 */
+    gap: 8px 12px;
+    padding: 8px 0;
+    border-bottom: 1px dashed #3b3e54;
+}
+.info-row:last-child { border-bottom: 0; }
+.info-label { color: #9aa4bf; }
+.info-value { color: #fff; word-break: break-all; }
+
+/* 控制按钮：改为竖排并撑满宽度 */
+.controls {
+    display: grid;
+    grid-template-columns: 1fr;  /* 单列竖排 */
+    gap: 10px;
+    margin-top: 12px;
+}
+.controls button {
+    width: 100%;
+    font-size: 15px;
+    padding: 10px 14px;
+}
+
+/* 给 Push / Play / Stop 做一点微弱区分（可删） */
+.controls .push-btn { background: #ff8a65; }
+.controls .push-btn:hover { background: #f1734a; }
+
+
+
+
 

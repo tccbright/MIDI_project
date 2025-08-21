@@ -1,0 +1,128 @@
+:root{
+    --bg: #0f0f10;
+    --panel: #121214;
+    --panel-2: #141416;
+    --fg: #eaeaea;
+    --muted: #9aa0a6;
+    --border: #2b2b2b;
+    --border-2: #333;
+    --accent: #3a82f7;
+    --accent-2: rgba(58,130,247,.25);
+}
+
+#realtime-play{
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    color: var(--fg);
+    box-shadow: 0 8px 24px rgba(0,0,0,.25);
+}
+
+#realtime-play h2{ margin: 0 0 10px; }
+
+#realtime-play hr{
+    border: none;
+    border-top: 1px solid var(--border-2);
+    margin: 16px 0;
+}
+
+#realtime-play label{ display:block; margin-bottom:6px; opacity:.9; }
+#realtime-play .hint{ color: var(--muted); font-size:.9rem; }
+#realtime-play .ml-8{ margin-left:8px; }
+#realtime-play .mt-10{ margin-top:10px; }
+
+#realtime-play .row{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    margin:8px 0;
+}
+
+#realtime-play .field{ min-width:200px; }
+
+#realtime-play input{
+    width: 140px;
+    padding: 8px 10px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--fg);
+    outline: none;
+}
+#realtime-play input:focus{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-2);
+}
+
+#realtime-play .part-tabs{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:12px;
+}
+
+#realtime-play .part-btn{
+    padding:8px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--fg);
+    cursor:pointer;
+    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+#realtime-play .part-btn:hover{ background:#1b1b1e; }
+#realtime-play .part-btn.active{
+    outline: 2px solid var(--accent);
+    outline-offset: 0;
+    box-shadow: 0 0 0 2px var(--accent-2) inset;
+}
+
+#realtime-play button{
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--fg);
+    cursor:pointer;
+}
+#realtime-play button:hover{ background:#1b1b1e; }
+#realtime-play button:active{ transform: translateY(1px); }
+
+#realtime-play .variant-grid{
+    display:grid;
+    gap:8px;
+    margin-top:8px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+
+#realtime-play .variant{
+    text-align:left;
+    padding:10px 12px;
+    border-radius:10px;
+    border:1px solid var(--border);
+    background: var(--panel-2);
+    color: var(--fg);
+    cursor:pointer;
+    transition: background .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+#realtime-play .variant:hover{ background:#1b1b1e; }
+#realtime-play .variant.selected{
+    border-color: var(--accent);
+    box-shadow: 0 0 0 2px var(--accent-2) inset;
+}
+
+/* 输入禁用状态（Drums 时自动锁定为 9） */
+#realtime-play input:disabled{
+    opacity:.7;
+    cursor:not-allowed;
+    background:#101012;
+}
+
+/* 小屏优化 */
+@media (max-width: 520px){
+    #realtime-play input{ width: 120px; }
+    #realtime-play .variant-grid{
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}

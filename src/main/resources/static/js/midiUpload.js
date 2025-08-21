@@ -9,12 +9,12 @@ async function uploadMidi(action) {
     const descInput = document.getElementById("description");
 
     if (!fileInput.files.length) {
-        alert("请选择一个 MIDI 文件！");
+        alert("Please select a MIDI file!");
         return;
     }
 
     if (!nameInput.value.trim()) {
-        alert("请输入歌曲名称！");
+        alert("Please enter the song name!");
         return;
     }
 
@@ -23,7 +23,7 @@ async function uploadMidi(action) {
     formData.append("name", nameInput.value.trim());
     formData.append("description", descInput.value.trim());
 
-    const url = "/midi/" + action; // /midi/save
+    const url = "/midi/" + action; // /midi/save or /midi/savePublish
 
     try {
         const res = await fetch(url, {
@@ -38,16 +38,19 @@ async function uploadMidi(action) {
         if (result.success) {
             const song = result.data;
 
-            // 更新上传结果提示
-            document.getElementById("result").innerText = "✅ 上传成功: " + song.name;
+            // 更新上传结果提示（弹窗内）
+            document.getElementById("result").innerText = "✅ Upload success: " + song.name;
 
-            // 更新主页卡片里的信息
-            document.getElementById("uploadInfo").innerHTML = `
-                <strong>🎶 最近上传：</strong><br>
-                <b>歌曲名：</b> ${song.name}<br>
-                <b>简介：</b> ${song.description || "无"}<br>
-                <b>乐器数量：</b> ${song.instrumentCount}
+            // 在同一个上传卡片里显示最近上传信息
+            const html = `
+                <h3 style="margin-top:12px;">📑 Recent Upload</h3>
+                <div class="last-upload-box">
+                    <p>🎶 <b>Song:</b> ${song.name}</p>
+                    <p><b>Description:</b> ${song.description || "N/A"}</p>
+                    <p><b>Instrument count:</b> ${song.instrumentCount}</p>
+                </div>
             `;
+            document.getElementById("lastUpload").innerHTML = html;
 
             // 关闭模态框
             closeUploadModal();
@@ -59,10 +62,10 @@ async function uploadMidi(action) {
             });
             renderFileList();
         } else {
-            document.getElementById("result").innerText = "❌ 上传失败: " + result.message;
+            document.getElementById("result").innerText = "❌ Upload failed: " + result.message;
         }
 
     } catch (err) {
-        document.getElementById("result").innerText = "❌ 请求失败: " + err;
+        document.getElementById("result").innerText = "❌ Request failed: " + err;
     }
 }
